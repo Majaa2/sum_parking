@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import '../main.dart';
+import '../pages/main_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,9 +22,9 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              colors: [Colors.blue, Colors.teal],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter),
+              colors: [Colors.cyan,Colors.teal, Colors.purple],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight),
         ),
         child: _isLoading ? Center(child: CircularProgressIndicator()) : ListView(
           children: <Widget>[
@@ -40,11 +40,11 @@ class _LoginPageState extends State<LoginPage> {
   signIn(String email, pass) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     Map data = {
-      'email': email,
+      'username': email,
       'password': pass
     };
     var jsonResponse = null;
-    var response = await http.post("YOUR_BASE_URL", body: data);
+    var response = await http.post("https://sum-parking.herokuapp.com/api/login", body: data);
     if(response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
       if(jsonResponse != null) {
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
         },
         elevation: 0.0,
         color: Colors.purple,
-        child: Text("Sign In", style: TextStyle(color: Colors.white70)),
+        child: Text("PRIJAVA", style: TextStyle(color: Colors.white70)),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       ),
     );
@@ -98,8 +98,8 @@ class _LoginPageState extends State<LoginPage> {
 
             style: TextStyle(color: Colors.white70),
             decoration: InputDecoration(
-              icon: Icon(Icons.email, color: Colors.white70),
-              hintText: "Email",
+              icon: Icon(Icons.verified_user, color: Colors.white70),
+              hintText: "Korisničko ime",
               border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white70)),
               hintStyle: TextStyle(color: Colors.white70),
             ),
@@ -112,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
             style: TextStyle(color: Colors.white70),
             decoration: InputDecoration(
               icon: Icon(Icons.lock, color: Colors.white70),
-              hintText: "Password",
+              hintText: "Šifra",
               border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white70)),
               hintStyle: TextStyle(color: Colors.white70),
             ),
@@ -126,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       margin: EdgeInsets.only(top: 50.0),
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
-      child: Text("Code Land",
+      child: Text("SUM sParking",
           style: TextStyle(
               color: Colors.white70,
               fontSize: 40.0,
