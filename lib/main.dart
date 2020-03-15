@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:sum_parking/pages/registration.dart';
 import 'pages/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './pages/main_page.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         //accentColor: Colors.cyan,
         scaffoldBackgroundColor: Color(0xFFE0E2F1),
       ),
+      routes: {
+        Registration.routeName : (ctx)=> Registration()
+      },
     );
   }
 }
