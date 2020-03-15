@@ -111,6 +111,82 @@ class _HomeState extends State<Home> {
                 }).toList(),
               ),
             ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.544,
+              child: ListView.builder(
+                itemCount: 25,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                  child: Card(
+                    elevation: 5.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0.0),
+                    ),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 18.0, vertical: 10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                  width: 40.0,
+                                  height: 40.0,
+                                  // color: Colors.green,
+                                  child: CircleAvatar(
+                                      backgroundColor: Colors.green,
+                                      foregroundColor: Colors.green)),
+                              SizedBox(width: 10.0),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    'parking space',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    'parking place',
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                              SizedBox(width: 100.0),
+                              Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.0, vertical: 10.0),
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      // Navigator.of(context).pushNamed(Somescreen.routeName);
+                                    },
+                                    color: Colors.redAccent,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    child: Text('Rezerviraj', style: TextStyle(color: Colors.white)),
+                                  ))
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
