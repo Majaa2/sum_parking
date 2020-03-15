@@ -64,27 +64,28 @@ class _MainPageState extends State<MainPage> {
     final screenHeight = size.height;
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("Code Land", style: TextStyle(color: Colors.white)),
-      //   actions: <Widget>[
-      //     FlatButton(
-      //       onPressed: () {
-      //         sharedPreferences.clear();
-      //         sharedPreferences.commit();
-      //         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => LoginPage()), (Route<dynamic> route) => false);
-      //       },
-      //       child: Text("Log Out", style: TextStyle(color: Colors.white)),
-      //     ),
-      //   ],
-      // ),
+
+        // actions: <Widget>[
+        //   FlatButton(
+        //     onPressed: () {
+        //       sharedPreferences.clear();
+        //       sharedPreferences.commit();
+        //       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => LoginPage()), (Route<dynamic> route) => false);
+        //     },
+        //     child: Text("Log Out", style: TextStyle(color: Colors.white)),
+        //   ),
+        // ],
+
 
       bottomNavigationBar: CurvedNavigationBar(
         index: pageIndex,
         backgroundColor: Colors.transparent,
+        color: Colors.blue,
         key: _bottomNavigationKey,
+        height: 60.0,
         items: <Widget>[
-          Icon(Icons.home, size: 30),
-          Icon(Icons.person, size: 30),
+          Icon(Icons.home, size: 30, color: Colors.white,),
+          Icon(Icons.person, size: 30, color: Colors.white,),
         ],
         onTap: (index) {
           setState(() {
