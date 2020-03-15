@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import '../pages/main_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'registration.dart';
+
 
 class LoginPage extends StatefulWidget {
   @override
@@ -31,6 +33,20 @@ class _LoginPageState extends State<LoginPage> {
             headerSection(),
             textSection(),
             buttonSection(),
+            SizedBox(height: 15.0),
+            Center(
+              child: InkWell(
+                child: new Text(
+                  'Postanite korisnik SUM sParkinga!',
+                  style: TextStyle(
+                    color: Colors.purple[900]
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context).pushNamed(Registration.routeName);
+                }
+          ),
+            ),
           ],
         ),
       ),

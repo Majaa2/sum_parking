@@ -5,6 +5,8 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'login_page.dart';
 import './home.dart';
 import './profile.dart';
+import 'parking_information.dart';
+import 'profile.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -80,7 +82,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: CurvedNavigationBar(
         index: pageIndex,
         backgroundColor: Colors.transparent,
-        color: Colors.blue,
+        color: Colors.blue[800],
         key: _bottomNavigationKey,
         height: 60.0,
         items: <Widget>[
