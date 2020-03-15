@@ -17,7 +17,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: MainPage(),
       theme: ThemeData(
-        accentColor: Colors.white70
+        primaryColor: Color(0xFFE0E2F1),
+        //accentColor: Colors.cyan,
+        scaffoldBackgroundColor: Color(0xFFE0E2F1),
       ),
     );
   }

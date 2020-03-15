@@ -12,82 +12,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-//   SharedPreferences sharedPreferences;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     checkLoginStatus();
-//   }
-
-//   int pageIndex = 1;
-
-//   final Home _home = Home();
-//   final Profile _profile = Profile();
-
-//   Widget _showPage = Profile();
-
-//   Widget _pageChoser(int page) {
-//     switch (page) {
-//       case 0:
-//         return _home;
-//         break;
-//       case 1:
-//         return _profile;
-//         break;
-//       default:
-//         return Container(
-//           child: Center(
-//             child: Text(
-//               'No page',
-//               style: TextStyle(fontSize: 30),
-//             ),
-//           ),
-//         );
-//     }
-//   }
-
-//   GlobalKey _bottomNavigationKey = GlobalKey();
-
-//   checkLoginStatus() async {
-//     sharedPreferences = await SharedPreferences.getInstance();
-//     if (sharedPreferences.getString("token") == null) {
-//       Navigator.of(context).pushAndRemoveUntil(
-//           MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
-//           (Route<dynamic> route) => false);
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//      Size size = MediaQuery.of(context).size;
-//     final screenWidth = size.width;
-//     final screenHeight = size.height;
-//     return Scaffold(
-//         bottomNavigationBar: CurvedNavigationBar(
-//           index: pageIndex,
-//           backgroundColor: Colors.transparent,
-//           key: _bottomNavigationKey,
-//           items: <Widget>[
-//             Icon(Icons.home, size: 30),
-//             Icon(Icons.person, size: 30),
-//           ],
-//           onTap: (index) {
-//             setState(() {
-//               _showPage = _pageChoser(index);
-//             });
-//           },
-//         ),
-//         body: Container(
-//           decoration: BoxDecoration(
-//             color: Theme.of(context).primaryColor,
-//           ),
-//           child: Center(
-//             child: _showPage
-//           ),
-//         ));
-//   }
-SharedPreferences sharedPreferences;
+  SharedPreferences sharedPreferences;
 
   @override
   void initState() {
@@ -97,29 +22,82 @@ SharedPreferences sharedPreferences;
 
   checkLoginStatus() async {
     sharedPreferences = await SharedPreferences.getInstance();
-    if(sharedPreferences.getString("token") == null) {
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => LoginPage()), (Route<dynamic> route) => false);
+    if (sharedPreferences.getString("token") == null) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+          (Route<dynamic> route) => false);
     }
   }
 
+  int pageIndex = 1;
+
+  final Home _home = Home();
+  final Profile _profile = Profile();
+
+  Widget _showPage = Profile();
+
+  Widget _pageChoser(int page) {
+    switch (page) {
+      case 0:
+        return _home;
+        break;
+      case 1:
+        return _profile;
+        break;
+      default:
+        return Container(
+          child: Center(
+            child: Text(
+              'No page',
+              style: TextStyle(fontSize: 30),
+            ),
+          ),
+        );
+    }
+  }
+
+  GlobalKey _bottomNavigationKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    final screenWidth = size.width;
+    final screenHeight = size.height;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Code Land", style: TextStyle(color: Colors.white)),
-        actions: <Widget>[
-          FlatButton(
-            onPressed: () {
-              sharedPreferences.clear();
-              sharedPreferences.commit();
-              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => LoginPage()), (Route<dynamic> route) => false);
-            },
-            child: Text("Log Out", style: TextStyle(color: Colors.white)),
-          ),
+      // appBar: AppBar(
+      //   title: Text("Code Land", style: TextStyle(color: Colors.white)),
+      //   actions: <Widget>[
+      //     FlatButton(
+      //       onPressed: () {
+      //         sharedPreferences.clear();
+      //         sharedPreferences.commit();
+      //         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => LoginPage()), (Route<dynamic> route) => false);
+      //       },
+      //       child: Text("Log Out", style: TextStyle(color: Colors.white)),
+      //     ),
+      //   ],
+      // ),
+
+      bottomNavigationBar: CurvedNavigationBar(
+        index: pageIndex,
+        backgroundColor: Colors.transparent,
+        key: _bottomNavigationKey,
+        items: <Widget>[
+          Icon(Icons.home, size: 30),
+          Icon(Icons.person, size: 30),
         ],
+        onTap: (index) {
+          setState(() {
+            _showPage = _pageChoser(index);
+          });
+        },
       ),
-      body: Center(child: Text("Main Page")),
-      drawer: Drawer(),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+        ),
+        child: Center(child: _showPage),
+      ),
     );
   }
 }

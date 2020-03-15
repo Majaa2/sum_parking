@@ -8,24 +8,9 @@ class Profile extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     final screenHeight = size.height;
     final screenWidth = size.width;
-    return Column(
-      children: <Widget>[
-        Container(
-          height: screenHeight * 0.4,
-          child: Stack(
-            children: <Widget>[
-              CoverImage(),
-              SafeArea(
-                child: Column(
-                  children: <Widget>[
-                    ProfilePhoto(),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ],
+    return Center(
+      //backgroundColor: Colors.blue,
+      child: Text('Profile'),
     );
   }
 }
