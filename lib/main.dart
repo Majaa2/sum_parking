@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:sum_parking/pages/parking_information.dart';
 import 'package:sum_parking/pages/registration.dart';
 import 'pages/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.lightBlue[100],
       ),
       routes: {
-        Registration.routeName : (ctx)=> Registration()
+        Registration.routeName : (ctx)=> Registration(),
+        ParkingInformation.routeName : (ctx)=> ParkingInformation()
       },
     );
   }

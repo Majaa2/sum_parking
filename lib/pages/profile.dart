@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sum_parking/pages/parking_information.dart';
 import '../widgets/cover_image.dart';
 import '../widgets/profile_photo.dart';
+import 'parking_information.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -21,7 +23,7 @@ class _ProfileState extends State<Profile> {
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [Colors.blue[900], Colors.blue[400]])),
+                    colors: [Colors.blue[900], Colors.blue[500]])),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -60,17 +62,12 @@ class _ProfileState extends State<Profile> {
               children: <Widget>[
                 Expanded(
                   child: Container(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                          Colors.blue[700],
-                          Colors.blue[400],
-                        ])),
+                    color: Colors.lightBlue[300],
                     child: ListTile(
                       onTap: (){
+                        setState(() {     
                         items = 'reservationsNow';
+                        });
                       },
                       title: Text(
                         "Trenutne rezervacije",
@@ -78,7 +75,7 @@ class _ProfileState extends State<Profile> {
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 17.0),
+                            fontSize: 16.0),
                       ),
                       subtitle: Text(
                         "Broj",
@@ -97,7 +94,9 @@ class _ProfileState extends State<Profile> {
                             colors: [Colors.blue[500], Colors.blue[800]])),
                     child: ListTile(
                       onTap: (){
+                        setState(() {
                         items = 'reservationsOld';
+                        });
                       },
                       title: Text(
                         "Povijest rezervacija",
@@ -105,7 +104,7 @@ class _ProfileState extends State<Profile> {
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 17.0),
+                            fontSize: 16.0),
                       ),
                       subtitle: Text(
                         "Broj",
@@ -132,10 +131,18 @@ class _ProfileState extends State<Profile> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const ListTile(
-              leading: Icon(Icons.album, size: 50),
+            ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.green,
+                ),
               title: Text('Heart Shaker'),
               subtitle: Text('TWICE'),
+              trailing: IconButton(
+                icon: Icon(Icons.more),
+                onPressed:() {
+                  Navigator.of(context).pushNamed(ParkingInformation.routeName);
+                }
+              )
             ),
           ],
         ),
@@ -150,7 +157,9 @@ class _ProfileState extends State<Profile> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             const ListTile(
-              leading: Icon(Icons.album, size: 50),
+              leading: CircleAvatar(
+                backgroundColor: Colors.green,
+                ),
               title: Text('Majaa'),
               subtitle: Text('Mala'),
             ),
