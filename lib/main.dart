@@ -7,6 +7,7 @@ import 'package:sum_parking/pages/parking_information.dart';
 import 'package:sum_parking/pages/registration.dart';
 import 'pages/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sum_parking/pages/create_reservation.dart';
 import './pages/main_page.dart';
 
 void main() => runApp(MyApp());
@@ -27,6 +28,8 @@ class MyApp extends StatelessWidget {
         Registration.routeName : (ctx)=> Registration(),
         ParkingInformation.routeName : (ctx)=> ParkingInformation(),
         LoginPage.routeName: (ctx) => LoginPage(),
+        CreateReservation.routeName: (ctx)=> CreateReservation(),
+
       },
     );
   }
