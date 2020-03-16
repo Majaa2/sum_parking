@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         Registration.routeName : (ctx)=> Registration(),
-        ParkingInformation.routeName : (ctx)=> ParkingInformation()
+        ParkingInformation.routeName : (ctx)=> ParkingInformation(),
+        LoginPage.routeName: (ctx) => LoginPage(),
       },
     );
   }
