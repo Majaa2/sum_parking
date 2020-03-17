@@ -6,13 +6,13 @@ import 'package:http/http.dart' as http;
 
 class ParkingSpace with ChangeNotifier{
   final int id;
-  final bool occupied;
+  final int occupied;
   final double lat;
   final double lng;
   final String parkingType; 
   final String parkingSpaceTag;
   final String parkingSide;
-  final bool is_visible;
+  final int is_visible;
 
 
 ParkingSpace({

@@ -9,6 +9,7 @@ import 'package:sum_parking/pages/parking_information.dart';
 import 'package:sum_parking/pages/registration.dart';
 import 'package:sum_parking/pages/splash_screen.dart';
 import 'package:sum_parking/providers/auth.dart';
+import 'package:sum_parking/providers/parking_spaces.dart';
 import 'package:sum_parking/providers/reservations.dart';
 import 'helpers/custom_route.dart';
 import 'pages/login_page.dart';
@@ -27,14 +28,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: Auth(),
         ),
-        // ChangeNotifierProxyProvider<Auth, ParkingSpaces>(
-        //     builder: (ctx, auth, prevProducts) => Products(auth.token, prevProducts == null ? [] : prevProducts.items, auth.userId),
-        //   ),
+        ChangeNotifierProxyProvider<Auth, ParkingSpaces>(
+            builder: (ctx, auth, prevSpaces) => ParkingSpaces(prevSpaces == null ? [] : prevSpaces.items, auth.authToken, auth.userId),
+          ),
         ChangeNotifierProxyProvider<Auth, Reservations>(
-          update: (ctx, auth, prevRes) => Reservations(
+          builder: (ctx, auth, prevRes) => Reservations(
               prevRes == null ? [] : prevRes.items,
-              auth.authToken,
-              auth.user_id),
+              auth.authToken),
         ),
       ],
       child: Consumer<Auth>(

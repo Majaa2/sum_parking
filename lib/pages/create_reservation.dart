@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:sum_parking/providers/reservation.dart';
+import 'package:sum_parking/providers/reservations.dart';
 
 class CreateReservation extends StatefulWidget {
   static const routeName = '/add-reservation';
@@ -172,7 +175,14 @@ class _CreateReservationState extends State<CreateReservation> {
                 ),
                 Center(
                   child: RawMaterialButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      var res = {
+                        "parkingId": 36,
+                        "userId": 1,
+                        "rezervationTime": "${DateFormat('yyyy-MM-dd').format(_date)} ${_time.format(context)}+1"
+                      };
+                      Provider.of<Reservations>(context).addReservation(res);
+                    },
                     padding: EdgeInsets.all(0.0),
                     child: Container(
                       decoration: BoxDecoration(
@@ -186,7 +196,10 @@ class _CreateReservationState extends State<CreateReservation> {
                       ),
                       padding: EdgeInsets.all(10.0),
                       child: Text('Rezerviraj',
-                          style: TextStyle(fontSize: 20, color: Colors.white,)),
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          )),
                     ),
                   ),
                 )
@@ -236,89 +249,5 @@ Expanded _buildRowCard(IconData icon, Color color, String text, String title) {
       color: Colors.white10,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
     ),
-  );
-}
-
-Widget _buildCustomExpansion(BuildContext context) {
-  return Column(
-    children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              'Local',
-              style: Theme.of(context)
-                  .textTheme
-                  .title
-                  .copyWith(fontWeight: FontWeight.bold),
-            ),
-            Icon(
-              Icons.keyboard_arrow_down,
-              color: Colors.grey,
-            ),
-          ],
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              CircleAvatar(
-                                radius: 15.0,
-                                child: Icon(
-                                  Icons.list,
-                                  size: 22.0,
-                                ),
-                                backgroundColor: Colors.blue,
-                                foregroundColor: Colors.white,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                  'Reminders',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white54),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            '9',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle
-                                .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                color: Colors.white10,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-              ),
-            ),
-          ],
-        ),
-      )
-    ],
   );
 }

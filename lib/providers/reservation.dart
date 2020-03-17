@@ -7,7 +7,7 @@ class Reservation with ChangeNotifier {
   final int id;
   final int parking_space_id;
   final int user_id;
-  final DateTime reservation_time;
+  final String reservation_time;
 
   Reservation({
     @required this.id,
