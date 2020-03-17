@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
@@ -16,21 +17,39 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   SharedPreferences sharedPreferences;
 
+    var _isInit = true;
+  bool _isLoading = false;
+
   @override
   void initState() {
     super.initState();
-    checkLoginStatus();
+    // checkLoginStatus();
   }
 
-  checkLoginStatus() async {
-    sharedPreferences = await SharedPreferences.getInstance();
-    if (sharedPreferences.getString("token") == null) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
-          (Route<dynamic> route) => false);
+  // checkLoginStatus() async {
+  //   sharedPreferences = await SharedPreferences.getInstance();
+  //   if (sharedPreferences.getString("token") == null) {
+  //     Navigator.of(context).pushAndRemoveUntil(
+  //         MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+  //         (Route<dynamic> route) => false);
+  //   }
+  // }
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      // Provider.of<Reservations>(context).fetchReservations().then((_) {
+      //   setState(() {
+      //     _isLoading = false;
+      //   });
+      // });
     }
+    _isInit = false;
+    super.didChangeDependencies();
   }
-
   int pageIndex = 1;
 
   final Home _home = Home();
