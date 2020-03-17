@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:sum_parking/pages/home.dart';
+import 'package:sum_parking/pages/main_page.dart';
 import 'package:sum_parking/pages/parking_information.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import './login_page.dart';
 import '../widgets/cover_image.dart';
 import '../widgets/profile_photo.dart';
 import 'parking_information.dart';
+import 'dart:async';
+
 
 class Profile extends StatefulWidget {
   @override
@@ -11,7 +17,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   var items = "reservationsNow";
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +29,7 @@ class _ProfileState extends State<Profile> {
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [Colors.blue[900], Colors.blue[500]])),
+                    colors: [Colors.blue[900], Colors.blue[600]])),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,9 +40,12 @@ class _ProfileState extends State<Profile> {
                     CircleAvatar(
                       minRadius: 50,
                       backgroundColor: Colors.blue[800],
-                      child: CircleAvatar(
-                        child: Text("M", style: TextStyle(fontSize: 40.0)),
-                        minRadius: 40,
+                      child: InkWell(
+                        onLongPress: () => _onLongPress(),
+                        child: CircleAvatar(
+                          child: Text("M", style: TextStyle(fontSize: 40.0)),
+                          minRadius: 40,
+                        ),
                       ),
                     ),
                   ],
@@ -54,7 +63,6 @@ class _ProfileState extends State<Profile> {
                 ),
               ],
             ),
-           
           ),
           Container(
             // height: 50,
@@ -64,9 +72,9 @@ class _ProfileState extends State<Profile> {
                   child: Container(
                     color: Colors.lightBlue[300],
                     child: ListTile(
-                      onTap: (){
-                        setState(() {     
-                        items = 'reservationsNow';
+                      onTap: () {
+                        setState(() {
+                          items = 'reservationsNow';
                         });
                       },
                       title: Text(
@@ -93,9 +101,9 @@ class _ProfileState extends State<Profile> {
                             end: Alignment.topRight,
                             colors: [Colors.blue[500], Colors.blue[800]])),
                     child: ListTile(
-                      onTap: (){
+                      onTap: () {
                         setState(() {
-                        items = 'reservationsOld';
+                          items = 'reservationsOld';
                         });
                       },
                       title: Text(
@@ -118,7 +126,8 @@ class _ProfileState extends State<Profile> {
             ),
           ),
           Container(
-            child: items == "reservationsNow"? Reservation(): ReservationOld(),
+            child:
+                items == "reservationsNow" ? Reservation() : ReservationOld(),
           )
         ],
       ),
@@ -132,18 +141,14 @@ class _ProfileState extends State<Profile> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Colors.green,
+                leading: CircleAvatar(
+                  backgroundColor: Colors.green,
                 ),
-              title: Text('Heart Shaker'),
-              subtitle: Text('TWICE'),
-              trailing: IconButton(
-                icon: Icon(Icons.more),
-                onPressed:() {
+                title: Text('Heart Shaker'),
+                subtitle: Text('TWICE'),
+                onTap: () {
                   Navigator.of(context).pushNamed(ParkingInformation.routeName);
-                }
-              )
-            ),
+                }),
           ],
         ),
       ),
@@ -156,16 +161,37 @@ class _ProfileState extends State<Profile> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const ListTile(
+            ListTile(
               leading: CircleAvatar(
                 backgroundColor: Colors.green,
-                ),
+              ),
               title: Text('Majaa'),
               subtitle: Text('Mala'),
+              onTap: () {
+                Navigator.of(context).pushNamed(ParkingInformation.routeName);
+              },
             ),
           ],
         ),
       ),
     );
+  }
+
+  void _onLongPress() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Card(
+            color: Colors.red,
+            child: ListTile(
+              title: Text("Odjava"),
+              onTap: () async {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
+                
+              },
+            ),
+            
+          );
+        });
   }
 }

@@ -9,6 +9,8 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="sum_parking"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyBTXC_FeumA9GLn-blssEZx9dZBy63gi6Y"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

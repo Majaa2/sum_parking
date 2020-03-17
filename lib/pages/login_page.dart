@@ -11,6 +11,7 @@ import '../providers/auth.dart';
 
 
 class LoginPage extends StatefulWidget {
+   static const routeName = '/login_page';
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -18,6 +19,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   bool _isLoading = false;
+ 
 
   @override
   Widget build(BuildContext context) {
