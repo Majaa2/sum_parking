@@ -18,19 +18,19 @@ class ParkingSpaces with ChangeNotifier {
     return [..._items];
   }
 
-  ParkingSpace findaById(String id) {
+  ParkingSpace findById(int id) {
     return _items.firstWhere((res) => res.id == id);
   }
-  ParkingSpace findSkripta() {
-    return _items.firstWhere((res) => res.parkingSide == 'skripta');
+  List<ParkingSpace> findSkripta() {
+    return _items.where((res) => res.parkingSide == 'skripta').toList();
   }
 
-  ParkingSpace findGlavni() {
-    return _items.firstWhere((res) => res.parkingSide == 'glavni');
+  List<ParkingSpace> findGlavni() {
+    return _items.where((res) => res.parkingSide == 'glavni').toList();
   }
 
-  ParkingSpace findIgraliste() {
-    return _items.firstWhere((res) => res.parkingSide == 'igraliste');
+  List<ParkingSpace> findIgraliste() {
+    return _items.where((res) => res.parkingSide == 'igraliste').toList();
   }
 
   Future<void> fetchParkingSpaces([bool filterByUser = false]) async {
@@ -53,8 +53,9 @@ class ParkingSpaces with ChangeNotifier {
             lat: dynamic['lat'],
             lng: dynamic['lng'],
             parkingType: dynamic['parkingType'],
-            parkingSpaceTag: dynamic['parkingSpaceTag'],
-            parkingSide: 'skripta',
+            parkingSpaceTag: "S-${dynamic['id']}",
+            parkingSide: 'skripta',            
+            parkingSideName: 'Skripta',
             is_visible: dynamic['is_visible']));
         // print(parkingSpace)
       } else if (dynamic['id'] > 20 && dynamic['id'] < 40) {
@@ -64,8 +65,9 @@ class ParkingSpaces with ChangeNotifier {
             lat: dynamic['lat'],
             lng: dynamic['lng'],
             parkingType: dynamic['parkingType'],
-            parkingSpaceTag: dynamic['parkingSpaceTag'],
-            parkingSide: 'igraliste',
+            parkingSpaceTag:  "I-${dynamic['id']}",
+            parkingSide: 'igraliste',            
+            parkingSideName: 'Igralište',
             is_visible: dynamic['is_visible']));
       } else {
         parking_spaces.add(ParkingSpace(
@@ -74,8 +76,9 @@ class ParkingSpaces with ChangeNotifier {
             lat: dynamic['lat'],
             lng: dynamic['lng'],
             parkingType: dynamic['parkingType'],
-            parkingSpaceTag: dynamic['parkingSpaceTag'],
-            parkingSide: 'glavni',
+            parkingSpaceTag:  "G-${dynamic['id']}",
+            parkingSide: 'glavni',            
+            parkingSideName: 'Glavni ',
             is_visible: dynamic['is_visible']));
       } 
       // print(parking_spaces);

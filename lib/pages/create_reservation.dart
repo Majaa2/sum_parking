@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:sum_parking/providers/auth.dart';
+import 'package:sum_parking/providers/parking_spaces.dart';
 import 'package:sum_parking/providers/reservation.dart';
 import 'package:sum_parking/providers/reservations.dart';
 
@@ -45,6 +47,12 @@ class _CreateReservationState extends State<CreateReservation> {
 
   @override
   Widget build(BuildContext context) {
+    int id = ModalRoute.of(context).settings.arguments;
+    var parkingSpace = Provider.of<ParkingSpaces>(context).findById(id);
+    final user = Provider.of<Auth>(context).user;
+    final userId = Provider.of<Auth>(context).userId;
+
+
     return Scaffold(
       appBar: AppBar(
           title: Text(
@@ -68,12 +76,12 @@ class _CreateReservationState extends State<CreateReservation> {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Row(
                     children: <Widget>[
-                      _buildRowCard(Icons.my_location, Colors.blue, 'S-1',
+                      _buildRowCard(Icons.my_location, Colors.blue, '${parkingSpace.parkingSpaceTag}',
                           'Parkirno mjesto'),
                       SizedBox(
                         width: 6.0,
                       ),
-                      _buildRowCard(Icons.person_outline, Colors.purple, 'User',
+                      _buildRowCard(Icons.person_outline, Colors.purple, '${user}',
                           'Korisnik'),
                     ],
                   ),
@@ -177,8 +185,8 @@ class _CreateReservationState extends State<CreateReservation> {
                   child: RawMaterialButton(
                     onPressed: () {
                       var res = {
-                        "parkingId": 36,
-                        "userId": 1,
+                        "parkingId": id,
+                        "userId": userId,
                         "rezervationTime": "${DateFormat('yyyy-MM-dd').format(_date)} ${_time.format(context)}+1"
                       };
                       Provider.of<Reservations>(context).addReservation(res);

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:sum_parking/providers/parking_space.dart';
+import 'package:sum_parking/providers/parking_spaces.dart';
 
 class ParkingInformation extends StatefulWidget {
   static const routeName = '/parking_information';
@@ -14,23 +17,15 @@ class _ParkingInformationState extends State<ParkingInformation> {
 
   Completer<GoogleMapController> _controller = Completer();
 
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
-
   @override
   Widget build(BuildContext context) {
+    int id = ModalRoute.of(context).settings.arguments;
+    ParkingSpace parkingSpace =
+        Provider.of<ParkingSpaces>(context).findById(id);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Parkirno mjesto',
+        title: Text(
+          'Parkirno mjesto: ${parkingSpace.parkingSpaceTag}',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blue[800],
@@ -44,15 +39,17 @@ class _ParkingInformationState extends State<ParkingInformation> {
           child: Card(
             child: GoogleMap(
               mapType: MapType.normal,
-              initialCameraPosition: _kGooglePlex,
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
+              initialCameraPosition: CameraPosition(
+                target: LatLng(43.346279, 17.797821),
+                zoom: 15,
+              ),
+              markers: {Marker(markerId: MarkerId('${parkingSpace.parkingSpaceTag}'), position: LatLng(parkingSpace.lat, parkingSpace.lng))},
             ),
           ),
         ),
         Container(
-          color: zauzeto == true ? Colors.red[200] : Colors.green[200],
+          color:
+              parkingSpace.occupied == 1 ? Colors.red[200] : Colors.green[200],
           child: Card(
             child: Padding(
               padding: const EdgeInsets.all(17.0),
@@ -61,7 +58,7 @@ class _ParkingInformationState extends State<ParkingInformation> {
                   Row(
                     children: <Widget>[
                       Text(
-                        'Parkirno mjesto: ',
+                        'Parkirno mjesto: ${parkingSpace.parkingSpaceTag}',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20.0,
@@ -75,7 +72,7 @@ class _ParkingInformationState extends State<ParkingInformation> {
                   Row(
                     children: <Widget>[
                       Text(
-                        'Skripta',
+                        '${parkingSpace.parkingSideName}',
                         style:
                             TextStyle(fontSize: 17.0, color: Colors.grey[500]),
                       ),
@@ -87,11 +84,11 @@ class _ParkingInformationState extends State<ParkingInformation> {
                   Row(
                     children: <Widget>[
                       Text(
-                        zauzeto == true ? "ZAUZETO" : "SLOBODNO",
+                        parkingSpace.occupied == 1 ? "ZAUZETO" : "SLOBODNO",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15.0,
-                          color: zauzeto == true
+                          color: parkingSpace.occupied == 1
                               ? Colors.red[700]
                               : Colors.green[700],
                         ),

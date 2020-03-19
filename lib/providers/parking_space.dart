@@ -12,6 +12,7 @@ class ParkingSpace with ChangeNotifier{
   final String parkingType; 
   final String parkingSpaceTag;
   final String parkingSide;
+  final String parkingSideName;
   final int is_visible;
 
 
@@ -23,6 +24,7 @@ ParkingSpace({
   @required this.parkingType,
   @required this.parkingSpaceTag,
   @required this.parkingSide,
+  @required this.parkingSideName,
   @required this.is_visible
   }
 );

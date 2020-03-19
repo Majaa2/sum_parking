@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:sum_parking/providers/parking_spaces.dart';
 
 import 'login_page.dart';
 import './home.dart';
@@ -41,11 +42,11 @@ class _MainPageState extends State<MainPage> {
         _isLoading = true;
       });
 
-      // Provider.of<Reservations>(context).fetchReservations().then((_) {
-      //   setState(() {
-      //     _isLoading = false;
-      //   });
-      // });
+      Provider.of<ParkingSpaces>(context).fetchParkingSpaces().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
     }
     _isInit = false;
     super.didChangeDependencies();

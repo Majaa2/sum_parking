@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import './auth.dart';
 
 import './reservation.dart';
 
@@ -18,20 +19,18 @@ class Reservations with ChangeNotifier {
     return [..._items];
   }
 
-  Reservation findById(String id) {
+  Reservation findById(int id) {
     return _items.firstWhere((res) => res.id == id);
   }
 
-  Reservation findPastById(String id) {
-    return _items.firstWhere((res) =>
-        res.id == id &&
-        (DateTime.parse(res.reservation_time).isBefore(DateTime.now())));
+  List<Reservation> findPastById(int user_id) {
+    return _items.where(
+        (res) => (DateTime.parse(res.reservation_time).isBefore(DateTime.now())) && res.user_id == user_id).toList();
   }
 
-  Reservation findNextById(String id) {
-    return _items.firstWhere((res) =>
-        res.id == id &&
-        (DateTime.parse(res.reservation_time).isAfter(DateTime.now())));
+  List<Reservation> findNextById(int user_id) {
+    return _items.where(
+        (res) => (DateTime.parse(res.reservation_time).isAfter(DateTime.now()))  && res.user_id == user_id).toList();
   }
 
   Future<void> fetchReservations([bool filterByUser = false]) async {
@@ -66,9 +65,9 @@ class Reservations with ChangeNotifier {
     final url = 'https://sum-parking.herokuapp.com/api/rezervations';
     final response = await http.post(
       url,
+      headers: {"Content-Type": "application/json"},
       body: json.encode(res),
     );
-    res = json.encode(res);
     print(res);
     final newReservation = Reservation(
       parking_space_id: res['parkingId'],
@@ -76,7 +75,7 @@ class Reservations with ChangeNotifier {
       user_id: res['userId'],
     );
     _items.add(newReservation);
-    // notifyListeners();
+    notifyListeners();
   }
 
   Future<void> deleteReservation(int id) async {
