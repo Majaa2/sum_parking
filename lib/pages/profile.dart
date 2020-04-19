@@ -192,12 +192,12 @@ class _ProfileState extends State<Profile> {
             color: Colors.red,
             child: ListTile(
               title: Text("Odjava"),
-              onTap: () async {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => LoginPage()));
-              },
+              onTap: () {
+              Navigator.of(context).pop();
+              // Navigator.of(context).pushReplacementNamed('/');
+
+              Provider.of<Auth>(context).logout();
+            },
             ),
           );
         });
